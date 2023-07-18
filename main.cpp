@@ -3,11 +3,13 @@
 #include "Doctor.h"
 #include "HospitalDatabase.h"
 #include "saveandloadDB.h"
+#include "inputData.h"
 
 using namespace std;
 
+HospitalDatabase database;
+
 int main() {
-    HospitalDatabase database;
     // Load database from file 
     SaveAndLoadDB::loadDatabaseFromFile(database);
     int choice;
@@ -22,44 +24,19 @@ int main() {
         cout << "7. Remove a doctor from the database" << endl;
         cout << "8. Display all the doctors from the database" << endl;
         cout << "9. Display all the patients from the database" << endl;
-        cout << "10. Exit" << endl;
+        cout << "10. Export data to CSV" << endl;
+        cout << "11. Exit" << endl;
         cout << "========================================" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
+        inputData input;
         switch (choice) {
             case 1: {
-                int patientID, age;
-                string name, contactNumber;
-                cout << "Enter patient ID: ";
-                cin >> patientID;
-                cin.ignore();
-                cout << "Enter patient name: ";
-                getline(cin, name);
-                cout << "Enter patient age: ";
-                cin >> age;
-                cin.ignore();
-                cout << "Enter patient contact number: ";
-                getline(cin, contactNumber);
-
-                Patient patient(patientID, name, age, contactNumber, 0);
-                database.addPatient(patient);
-                cout << "Patient added successfully!" << endl;
+                input.addPatient(database);
                 break;
             }
             case 2: {
-                int doctorID;
-                string name, specialization;
-                cout << "Enter doctor ID: ";
-                cin >> doctorID;
-                cin.ignore();
-                cout << "Enter doctor name: ";
-                getline(cin, name);
-                cout << "Enter doctor specialization: ";
-                getline(cin, specialization);
-
-                Doctor doctor(doctorID, name, specialization);
-                database.addDoctor(doctor);
-                cout << "Doctor added successfully!" << endl;
+                input.addDoctor(database);
                 break;
             }
             case 3: {
@@ -131,9 +108,14 @@ int main() {
             case 9: {
                 database.displayAllPatients();
                 break;
-            } 
-            case 10:
-                // Save database to file
+            }
+            case 10: {
+                database.exportToCSV("database.csv");
+                break;
+            }
+            case 11:
+                // Save database
+                database.exportToCSV("database.csv");
                 SaveAndLoadDB::saveDatabaseToFile(database);
                 cout << "Exiting the program..." << endl;
                 break;
@@ -143,7 +125,7 @@ int main() {
         }
 
         cout << endl;
-    } while (choice != 10);
+    } while (choice != 11);
 
     return 0;
 }

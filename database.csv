@@ -1,12 +1,12 @@
-PATIENTS
+Patient ID,Name,Age,Contact Number,Assigned Doctor ID
 12,JI,10,56,0
 1,vinu,10,100,100
 2,david,12,101,100
 202,sharath,55,9633460,0
 144,jerry,88,85745621,0
 65,p,10,5855454,0
-884,dinu,165,955465543,0
-DOCTORS
+
+Doctor ID,Name,Specialization
 1,MM,SSSS
 22,HARI,MEDICI5
 100,sasi,ortho

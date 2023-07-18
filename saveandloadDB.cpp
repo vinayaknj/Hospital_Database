@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const std::string SaveAndLoadDB::DATABASE_FILE = "hospital_database.txt";
+const string SaveAndLoadDB::DATABASE_FILE = "hospital_database.txt";
 
 void SaveAndLoadDB::saveDatabaseToFile(const HospitalDatabase& database) {
     ofstream file(DATABASE_FILE);

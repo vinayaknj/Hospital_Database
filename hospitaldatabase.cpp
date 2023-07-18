@@ -1,8 +1,39 @@
 #include "HospitalDatabase.h"
-#include <algorithm>  // Include the <algorithm> header for remove_if
+#include <algorithm>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
+
+void HospitalDatabase::exportToCSV(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cout << "Failed to open file: " << filename << std::endl;
+        return;
+    }
+
+    file << "Patient ID,Name,Age,Contact Number,Assigned Doctor ID" << std::endl;
+    for (const auto& patient : patients) {
+        file << patient.getPatientID() << ","
+             << patient.getName() << ","
+             << patient.getAge() << ","
+             << patient.getContactNumber() << ","
+             << patient.getAssignedDoctorID() << std::endl;
+    }
+
+    file << std::endl;
+    
+    file << "Doctor ID,Name,Specialization" << std::endl;
+    for (const auto& doctor : doctors) {
+        file << doctor.getDoctorID() << ","
+             << doctor.getName() << ","
+             << doctor.getSpecialization() << std::endl;
+    }
+
+    file.close();
+    std::cout << "Data exported to CSV: " << filename << std::endl;
+}
 
 void HospitalDatabase::addPatient(const Patient& patient) {
     patients.push_back(patient);
@@ -13,7 +44,6 @@ void HospitalDatabase::addDoctor(const Doctor& doctor) {
 }
 
 bool HospitalDatabase::assignDoctorToPatient(int patientID, int doctorID) {
-    // Check doctor ID valid
     bool validDoctor = false;
     for (const auto& doctor : doctors) {
         if (doctor.getDoctorID() == doctorID) {

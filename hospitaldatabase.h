@@ -16,6 +16,7 @@ public:
     bool assignDoctorToPatient(int patientID, int doctorID);
     vector<Patient> getPatientsByDoctor(int doctorID) const;
     vector<Doctor> getDoctorsByPatient(int patientID) const;
+    void exportToCSV(const std::string& filename) const;
     void removePatient(int patientID);
     void removeDoctor(int doctorID);
     void displayAllPatients() const;
